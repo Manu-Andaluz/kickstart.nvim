@@ -193,6 +193,23 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 -- NOTE: Custom keymaps by manu
 vim.keymap.set('x', '<leader>p', '"_dP')
 
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+
+vim.keymap.set('n', '<leader>bn', '<cmd>bn<CR>')
+vim.keymap.set('n', '<leader>bp', '<cmd>bp<CR>')
+
+vim.keymap.set('n', '<C-d>', '<C-d>zz')
+vim.keymap.set('n', '<C-u>', '<C-u>zz')
+
+vim.keymap.set('n', 'n', 'nzz')
+vim.keymap.set('n', 'N', 'Nzz')
+
+vim.keymap.set('n', '#', function()
+  vim.fn.setreg('/', '\\V\\<' .. vim.fn.expand '<cword>' .. '\\>')
+  vim.cmd 'normal! N' -- Had to put this bad boy, otherwise I had to hit n or N twice the first time after hitting # to start moving
+end, { silent = true })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -992,6 +1009,9 @@ require('lazy').setup({
         server_opts_overrides = {},
       }
     end,
+  },
+  {
+    'tpope/vim-obsession',
   },
 }, {
   ui = {
